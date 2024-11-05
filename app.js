@@ -1,36 +1,77 @@
-// const fs = require("node:fs") // denote nodejs's modules
-const fs = require("fs") 
-const crypto = require("crypto")
+const express = require('express');
 
-const value = 10
+const app = express()
 
-console.log("first line")
+app.use(express.json())
+// Returns an middleware function... which kinda looks like this..
+// (req, res, next) => {
+// Reading the body...
+// adding the body inside req.body....
+// calling the next()
+// }
 
-setTimeout(() => console.log("setTimeout"), 0)
+// app.use((req, res, next) => {
+//     console.log("use function")
+//     next()
+// })
+// app.get("/profile", (req, res) => {
+//     res.send("Profile endpoint")
+// })
 
-process.nextTick(() => console.log("nextTick() 1 "))
+// app.use("/", (req, res, next) => {
+//     console.log("use function")
+//     next()
+// })
 
-const promise1 = new Promise((resolve, reject) => resolve("Promise1 resolved"))
+// app.get("/test/one", (req, res) => {
+//     console.log("final middleware")
+//     res.send("Base endpoint")
+// })
 
-promise1.then((data) => console.log(data))
 
 
-fs.readFile("one.txt", "utf-8", () => {
-    console.log("File reading complete")
-    process.nextTick(() => console.log("nextTick 1 inside File Read"))
-    setTimeout(() => console.log("setTimeout 2"), 0)
-    setImmediate(() => console.log("setImmediate 2"))
-    console.log("end line")
+const users = []
+
+app.get("/", (req, res) => {
+    res.json({ users })
 })
 
-setImmediate(() => console.log("setImmediate"))
+app.post("/register", (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    const token = crypto.randomUUID()
+    users.push({ username, password, token })
+    res.json({ msg: "User added successfully" })
+})
 
-process.nextTick(() => console.log("nextTick() 2"))
+
+app.post("/login", (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    const foundUser = users.find((user) => {
+        if (user.username === username && user.password === password) {
+            return user
+        }
+    })
+    if (foundUser) {
+        return res.json({ "token": foundUser.token })
+    }
+    return res.json({ msg: "User not found" })
+})
+
+// Only logged in users/authenticated users should be able to access it...
+app.post("/profile", (req, res) => {
+    const token = req.headers.token
+    const foundUser = users.find((user) => {
+        if (user.token === token) {
+            return user
+        }
+    })
+    if (foundUser) {
+        return res.json({ msg: foundUser })
+    }
+    return res.json({ err: "Unauthenticated user" })
+})
 
 
-function multiply(x, y) {
-    return x * y
-}
-
-const result = multiply(value, 5)
-console.log("result: ", result)
+app.listen(3000, () => console.log("server started at port 3000"))
