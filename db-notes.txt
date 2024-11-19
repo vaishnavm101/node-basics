@@ -1,5 +1,6 @@
 visit: mongodb.com...
 
+
 Goto products > Try Community Edition (click here)
 
 Download the "MongoDB Community Server"
@@ -59,3 +60,6 @@ ex:
 db.students.updateOne({name: "Student 20"}, {$set: {course: "CSE/IT"}}, {upsert: true})
 Difference between upsert and insert:
 Insert first checks the filter if any document is matched it makes changes to it.. If not matched it does nothing, Upsert on the other hand also checks for documents matching filter if it founds any it makes changes but if it does not find any document it creates a new document...
+
+npm i mongoose
+To download the mongoose package, to communicate with our database
