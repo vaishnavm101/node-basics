@@ -7,9 +7,8 @@ router.get("/", (req, res) => {
     res.send("Note / router")
 })
 
-router.get("/test", (req, res) => {
-    res.send("Note /test  router")
-})
+
+
 
 module.exports = {
     "notesRouter": router
