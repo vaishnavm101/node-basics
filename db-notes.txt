@@ -1,0 +1,72 @@
+visit: mongodb.com...
+
+
+Goto products > Try Community Edition (click here)
+
+Download the "MongoDB Community Server"
+Install the program...(next, next)...
+
+
+Scroll down to the tools section(on website) click on MongoDB Shell:
+
+select "msi" as package from dropdown and Download it...
+Install it....
+
+Once done... open your terminal and type "mongosh" if you don't find any error installation was successfull, it opens the mongodb shell where you can manipulate the mongodb database on your system...
+
+Under the tools Click on MongoDB Compass(GUI) and download it
+
+
+Create database(It creates and switches to this database, now all the collections will be stored inside this database):
+use databasename
+
+
+Create collection:
+db.createCollection("collectionname")
+
+Insert 1 document:
+db.students.insertOne({name:"Testname"})
+Insert multiple documents:
+db.students.insertMany([ {}, {}, {} ])
+// We can insert multiple objects/documents inside "{}"
+
+find(): find function is used to select data from a collection, if it's called with empty parameters on a collection it returns all the data of that collection
+
+
+$and $or:
+
+db.students.find({$or: [{name:"Student 1"}, {age: 20}] })
+db.students.find({$and: [{name:"Student 1"}, {age: 20}] })
+
+db.students.insertOne({name:"Student 11", hobbies: ["Cricket", "Tennis"]})
+db.students.find({hobbies: "Tennis"})
+
+
+update:
+
+updateOne: to update 1 document
+db.students.updateOne(filter, data): 1st arg filter consists of filter(which documents should be updated), 2nd arg is data i.e change you want to make to that document...
+
+
+
+updateMany: To update multiple documents(matching the filter):
+ db.students.updateMany({}, {$set: {course: "CSE/AI"}})
+Above line will update all the documents of students collection and add a field/edit existing field to "CSE/AI"
+
+upsert: It comes under the 3rd argument update(updateOne and updateMany) function, 
+syntax:
+db.collection.updateOne(filter, data, {upsert: true})
+ex:
+db.students.updateOne({name: "Student 20"}, {$set: {course: "CSE/IT"}}, {upsert: true})
+Difference between upsert and insert:
+Insert first checks the filter if any document is matched it makes changes to it.. If not matched it does nothing, Upsert on the other hand also checks for documents matching filter if it founds any it makes changes but if it does not find any document it creates a new document...
+
+npm i mongoose
+To download the mongoose package, to communicate with our database
+
+npm i jsonwebtoken
+To download JWT package
+
+mongoose.plurlized(null) 
+// mongoose.pluralize(null) removes the pluralizing "s" effect on models
+

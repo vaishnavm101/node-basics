@@ -1,0 +1,9 @@
+Commands:
+
+1) Setup the project: npm init --y 
+
+2) Install dependencies: npm i express jsonwebtoken mongoose
+
+
+
+
