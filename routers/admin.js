@@ -6,6 +6,29 @@ const JWT_ADMIN_SECRET = "JWETLKJSLKJFJ(*#$*98028394___920382"
 const router = express.Router()
 
 
+const authAdmin = (req, res, next) => {
+    try {
+        const token = req.headers.token
+        const data = jwt.verify(token, JWT_ADMIN_SECRET)
+        console.log("Data: ", data)
+        req.adminEmail = data.email
+        next()
+    } catch (error) {
+        return res.status(401).json({ msg: "Invalid token" })
+    }
+}
+
+
+router.get("/get-info", authAdmin, async (req, res) => {
+    const adminEmail = req.adminEmail
+    const admin = await AdminModel.findOne({ email: adminEmail })
+    if (!admin) {
+        return res.json({ msg: "Invalid request" })
+    }
+    console.log("Admin: ", admin)
+    return res.json({ admin })
+})
+
 router.post("/register", async (req, res) => {
 
     // validation of email, password, name goes here...
