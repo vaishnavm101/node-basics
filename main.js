@@ -1,6 +1,7 @@
 import express from "express"
 import userRouter from "./routers/users.js"
 import adminRouter from "./routers/admin.js"
+import productRouter from "./routers/products.js"
 import { connectToDb } from "./db.js"
 
 connectToDb()
@@ -21,5 +22,6 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use("/user", userRouter)
 app.use("/admin", adminRouter)
+app.use("/products", productRouter)
 
 app.listen(8000, () => console.log("server started at port 8000"))
