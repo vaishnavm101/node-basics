@@ -13,6 +13,11 @@
 * Jwt tokens [Reference](https://jwt.io/introduction)
 * Sql vs no-sql [Reference](https://www.coursera.org/articles/nosql-vs-sql)
 * Mongodb Basics(structure, fields, methods, operators) [Reference 1](https://www.mongodb.com/docs/manual/reference/operator/) [Reference 2](https://www.mongodb.com/docs/manual/crud/)
+* MongoDB operators ($rename, $slice, array operators, conditional operators)
+* How can we implement transactions in MongoDB
+* Pluralization in mongoose
+* HTTP handshakes status
+* Primary purpose of Streams in NodeJS
 * Indexing in Mongodb [Reference](https://www.mongodb.com/resources/basics/databases/database-index) 
 * Sharding in Mongodb [Reference](https://www.mongodb.com/resources/products/capabilities/sharding)
 * Clustering in NodeJS[Reference](https://nodejs.org/api/cluster.html)
